@@ -1,5 +1,7 @@
-import models.Ligne;
-import models.Station;
+package main.java;
+
+import main.java.models.Ligne;
+import main.java.models.Station;
 
 import java.util.ArrayList;
 
