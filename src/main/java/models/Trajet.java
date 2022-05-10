@@ -1,4 +1,4 @@
-package main.java.models;
+package Models;
 
 public class Trajet {
     private Station depart;
