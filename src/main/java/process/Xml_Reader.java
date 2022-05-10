@@ -1,5 +1,6 @@
-package Process;
+package process;
 
+import models.Station;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -11,8 +12,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import models.Station;
 
-public class Tram_Reader
+public class Xml_Reader
 {
     public static void main(String[] args) throws ParserConfigurationException, SAXException
     {
@@ -45,7 +48,13 @@ public class Tram_Reader
         }
     }
 
-    public String[] get_stations(String stations) {
-        return stations.split(" ");
+    public ArrayList<Station> get_stations(String to_split) {
+
+        ArrayList<Station> stations = null;
+        for (String station:
+             to_split.split(" ")) {
+            stations.add(new Station(station));
+        }
+        return stations;
     }
 }
