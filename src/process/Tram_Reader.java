@@ -21,6 +21,9 @@ public class Tram_Reader
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document document = db.parse(file);
             document.getDocumentElement().normalize();
+            if (document.getDocumentElement().getNodeName().equals("reseau")) {
+
+            }
             System.out.println("Root Element :" + document.getDocumentElement().getNodeName());
             NodeList nList = document.getElementsByTagName("employee");
             System.out.println("----------------------------");
@@ -39,5 +42,9 @@ public class Tram_Reader
         catch(IOException e) {
             System.out.println(e);
         }
+    }
+
+    public String[] get_stations(String stations) {
+        return stations.split(" ");
     }
 }
