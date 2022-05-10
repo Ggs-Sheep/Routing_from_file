@@ -1,7 +1,13 @@
-import models.AllStations;
+import models.Ligne;
+import models.Station;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        AllStations stations = new AllStations();
+
+        ArrayList<Ligne> lignes = new ArrayList<Ligne>();
+        ArrayList<Station> stations = new ArrayList<Station>();
+
     }
 }
