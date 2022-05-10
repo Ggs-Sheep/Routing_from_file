@@ -1,4 +1,4 @@
-package main.java.models;
+package Models;
 
 public class Station {
     private String nom;
