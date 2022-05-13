@@ -37,4 +37,12 @@ public class Ligne{
     public void addTrajets(Trajet trajet) {
         this.trajets.add(trajet);
     }
+
+    @Override
+    public String toString() {
+        return "Ligne{" +
+                "nom='" + nom + '\'' +
+                ", trajets=" + trajets +
+                '}';
+    }
 }
