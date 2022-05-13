@@ -1,6 +1,6 @@
 package process;
 
-import models.Station;
+import models.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,44 +17,82 @@ import models.Station;
 
 public class Xml_Reader
 {
-    public static void main(String[] args) throws ParserConfigurationException, SAXException
+    public static ArrayList<Ligne> main(String[] args,String path) throws ParserConfigurationException, SAXException
     {
+        ArrayList<Ligne> lignes = new ArrayList<Ligne>();
         try {
-            File file = new File("company.xml");
+            File file = new File(path);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document document = db.parse(file);
             document.getDocumentElement().normalize();
+            
+            // Tram
             if (document.getDocumentElement().getNodeName().equals("reseau")) {
+                NodeList nList = document.getElementsByTagName("ligne");
 
-            }
-            System.out.println("Root Element :" + document.getDocumentElement().getNodeName());
-            NodeList nList = document.getElementsByTagName("employee");
-            System.out.println("----------------------------");
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    System.out.println("Employee id : " + eElement.getAttribute("id"));
-                    System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
-                    System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
-                    System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
+                for (int temp = 0; temp < nList.getLength(); temp++) {
+                    Node nNode = nList.item(temp);
+                    Ligne ligne = new Ligne(get_line_name(nNode.getTextContent()));
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+                        ArrayList<Station> stations = get_stations(eElement.getElementsByTagName("stations").item(0).getTextContent());
+                        for (int i = 1; i < stations.size(); i++) {
+                            for (int a = 0; a < eElement.getElementsByTagName("heures-passage").getLength();a++) {
+                                String[] horaires = eElement.getElementsByTagName("heures-passage").item(a).getTextContent().split(" ");
+                                ligne.addTrajets(new Trajet(stations.get(i-1),stations.get(i),horaires[i-1],get_duration(horaires[i-1],horaires[i])));
+                            }
+                        }
+                    }
+                    lignes.add(ligne);
                 }
+            } else if (document.getDocumentElement().getNodeName().equals("horaires")) {
+                
             }
+
         }
         catch(IOException e) {
             System.out.println(e);
         }
+        return lignes;
     }
 
-    public ArrayList<Station> get_stations(String to_split) {
+    public static ArrayList<Station> get_stations(String to_split) {
 
-        ArrayList<Station> stations = null;
+        ArrayList<Station> stations = new ArrayList<Station>();
         for (String station:
              to_split.split(" ")) {
             stations.add(new Station(station));
         }
         return stations;
+    }
+
+    public static String get_line_name(String content) {
+        return content.split("\n")[0];
+    }
+
+    public static String[] get_time(String content) {
+        return content.split(" ");
+    }
+
+    public static int get_duration(String timeCode1, String timeCode2) {
+        int hour1 = Integer.parseInt(timeCode1.substring(0, (timeCode1.length()/2)));
+        int minute1 = Integer.parseInt(timeCode1.substring((timeCode1.length()/2)));
+
+        int hour2 = Integer.parseInt(timeCode2.substring(0, (timeCode2.length()/2)));
+        int minute2 = Integer.parseInt(timeCode2.substring((timeCode2.length()/2)));
+
+        int duration = 0;
+
+        while (!(Integer.toString(hour1)+":"+Integer.toString(minute1)).equals(Integer.toString(hour2)+":"+Integer.toString(minute2)))  {
+            if (minute1 < 59) {
+                minute1 = minute1 + 1;
+            } else {
+                minute1 = 0;
+                hour1 = hour1 + 1;
+            }
+            duration = duration + 1;
+        }
+        return duration;
     }
 }

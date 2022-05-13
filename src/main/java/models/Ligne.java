@@ -8,6 +8,10 @@ public class Ligne{
     private String nom;
     private ArrayList<Trajet> trajets;
 
+    public Ligne(String nom) {
+        this.nom = nom;
+        this.trajets = new ArrayList<Trajet>();
+    }
 
     public Ligne(String nom, ArrayList<Trajet> trajets) {
         this.nom = nom;
@@ -28,5 +32,9 @@ public class Ligne{
 
     public void setTrajets(ArrayList<Trajet> trajets) {
         this.trajets = trajets;
+    }
+
+    public void addTrajets(Trajet trajet) {
+        this.trajets.add(trajet);
     }
 }
