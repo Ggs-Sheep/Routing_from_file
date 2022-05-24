@@ -23,9 +23,14 @@ public class Stations {
         return null;
     }
 
-    public void addStation(Station s){
-        if(!stations.contains(s)){
-            stations.add(s);
+    public Station addStation(Station s){
+        for (Station station:
+             stations) {
+            if (station.getNom().equals(s.getNom())) {
+                return s;
+            }
         }
+        this.stations.add(s);
+        return s;
     }
 }

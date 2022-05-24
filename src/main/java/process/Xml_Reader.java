@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import models.Station;
 
-public class Xml_Reader
+public abstract class Xml_Reader
 {
-    public static ArrayList<Ligne> main(String[] args,String path) throws ParserConfigurationException, SAXException
+    public ArrayList<Ligne> readAll(Stations stations,String path) throws ParserConfigurationException, SAXException
     {
         ArrayList<Ligne> lignes = new ArrayList<Ligne>();
         try {
@@ -36,11 +36,15 @@ public class Xml_Reader
                     Ligne ligne = new Ligne(get_line_name(nNode.getTextContent()));
                     if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element eElement = (Element) nNode;
-                        ArrayList<Station> stations = get_stations(eElement.getElementsByTagName("stations").item(0).getTextContent());
-                        for (int i = 1; i < stations.size(); i++) {
+                        ArrayList<Station> tram_stations = get_stations(eElement.getElementsByTagName("stations").item(0).getTextContent());
+                        for (Station station:
+                                tram_stations){
+                            stations.addStation(station);
+                        }
+                        for (int i = 1; i < tram_stations.size(); i++) {
                             for (int a = 0; a < eElement.getElementsByTagName("heures-passage").getLength();a++) {
                                 String[] horaires = eElement.getElementsByTagName("heures-passage").item(a).getTextContent().split(" ");
-                                ligne.addTrajets(new Trajet(stations.get(i-1),stations.get(i),horaires[i-1],get_duration(horaires[i-1],horaires[i])));
+                                ligne.addTrajets(new Trajet(tram_stations.get(i-1),tram_stations.get(i),horaires[i-1],get_duration(horaires[i-1],horaires[i])));
                             }
                         }
                     }
@@ -57,7 +61,7 @@ public class Xml_Reader
         return lignes;
     }
 
-    public static ArrayList<Station> get_stations(String to_split) {
+    public ArrayList<Station> get_stations(String to_split) {
 
         ArrayList<Station> stations = new ArrayList<Station>();
         for (String station:
@@ -67,15 +71,15 @@ public class Xml_Reader
         return stations;
     }
 
-    public static String get_line_name(String content) {
+    public String get_line_name(String content) {
         return content.split("\n")[0];
     }
 
-    public static String[] get_time(String content) {
+    public String[] get_time(String content) {
         return content.split(" ");
     }
 
-    public static int get_duration(String timeCode1, String timeCode2) {
+    public int get_duration(String timeCode1, String timeCode2) {
         int hour1 = Integer.parseInt(timeCode1.substring(0, (timeCode1.length()/2)));
         int minute1 = Integer.parseInt(timeCode1.substring((timeCode1.length()/2)));
 

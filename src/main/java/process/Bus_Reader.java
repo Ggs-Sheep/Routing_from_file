@@ -96,11 +96,9 @@ public class Bus_Reader {
             for (int i = 0; i < p.size() - 1; i++) {
                 Integer index = i + 1;
 
-                Station depart = new Station(garesAller.get(i));
-                Station arrive = new Station(garesAller.get(index));
-                if(stations.getStations().contains(depart)){
-                    depart = stations.getStations()
-                }
+                Station depart = stations.addStation(new Station(garesAller.get(i)));
+                Station arrive = stations.addStation(new Station(garesAller.get(index)));
+
                 Trajet t = new Trajet(depart, arrive, p.get(i), 5);
                 //System.out.println(t.toString());
             }
