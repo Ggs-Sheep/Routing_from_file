@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Routing.iml" filepath="$PROJECT_DIR$/Routing.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Routing_from_file.iml" filepath="$PROJECT_DIR$/Routing_from_file.iml" />
     </modules>
   </component>
 </project>

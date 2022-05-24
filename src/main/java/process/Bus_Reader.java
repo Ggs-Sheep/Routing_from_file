@@ -2,6 +2,7 @@ package process;
 
 import models.Ligne;
 import models.Station;
+import models.Stations;
 import models.Trajet;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,10 +22,10 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Bus_Reader {
-    private ArrayList<String> stations;
+    private Stations stations;
 
-    public Bus_Reader() {
-        stations = new ArrayList<>();
+    public Bus_Reader(Stations stations) {
+        stations = stations;
     }
 
 
@@ -94,8 +95,12 @@ public class Bus_Reader {
         ) {
             for (int i = 0; i < p.size() - 1; i++) {
                 Integer index = i + 1;
+
                 Station depart = new Station(garesAller.get(i));
                 Station arrive = new Station(garesAller.get(index));
+                if(stations.getStations().contains(depart)){
+                    depart = stations.getStations()
+                }
                 Trajet t = new Trajet(depart, arrive, p.get(i), 5);
                 //System.out.println(t.toString());
             }
