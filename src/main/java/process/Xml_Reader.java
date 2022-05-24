@@ -61,7 +61,7 @@ public abstract class Xml_Reader
         return lignes;
     }
 
-    public ArrayList<Station> get_stations(String to_split) {
+    public static ArrayList<Station> get_stations(String to_split) {
 
         ArrayList<Station> stations = new ArrayList<Station>();
         for (String station:

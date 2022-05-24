@@ -13,6 +13,6 @@ public class Station {
     }
 
     public String toString(){
-        return "Station " + this.getNom();
+        return "Station: " + this.getNom();
     }
 }

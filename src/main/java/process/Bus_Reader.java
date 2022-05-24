@@ -24,8 +24,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Bus_Reader {
     private Stations stations;
 
-    public Bus_Reader(Stations stations) {
-        stations = stations;
+    public Bus_Reader(Stations s) {
+        stations = s;
     }
 
 
@@ -99,7 +99,12 @@ public class Bus_Reader {
                 Station depart = stations.addStation(new Station(garesAller.get(i)));
                 Station arrive = stations.addStation(new Station(garesAller.get(index)));
 
-                Trajet t = new Trajet(depart, arrive, p.get(i), 5);
+                String stringDepart = p.get(i);
+                String stringArrive = p.get(i + 1);
+
+                int duree = get_duration(stringDepart, stringArrive);
+
+                Trajet t = new Trajet(depart, arrive, p.get(i), duree);
                 //System.out.println(t.toString());
             }
         }
@@ -109,8 +114,8 @@ public class Bus_Reader {
         ) {
             for (int i = 0; i < p.size() - 1; i++) {
                 Integer index = i + 1;
-                Station depart = new Station(garesRetour.get(i));
-                Station arrive = new Station(garesRetour.get(index));
+                Station depart = stations.addStation(new Station(garesRetour.get(i)));
+                Station arrive = stations.addStation(new Station(garesRetour.get(index)));
 
                 String stringDepart = p.get(i);
                 String stringArrive = p.get(i + 1);

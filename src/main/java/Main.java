@@ -4,6 +4,7 @@ import models.Station;
 import models.Stations;
 import org.json.simple.parser.ParseException;
 import process.Bus_Reader;
+import process.Metro_Reader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,11 @@ public class Main {
             Bus_Reader bus_reader = new Bus_Reader(stations);
             Ligne ligneBus = bus_reader.lectureFichier();
 
-            System.out.println(ligneBus.toString());
+            //System.out.println(ligneBus.toString());
+
+            Metro_Reader mr = new Metro_Reader();
+
+            mr.readMetro(stations);
 
         }
 }
