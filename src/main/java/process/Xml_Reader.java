@@ -17,7 +17,7 @@ import models.Station;
 
 public abstract class Xml_Reader
 {
-    public ArrayList<Ligne> readAll(Stations stations,String path) throws ParserConfigurationException, SAXException
+    public static ArrayList<Ligne> readAll(Stations stations, String path) throws ParserConfigurationException, SAXException
     {
         ArrayList<Ligne> lignes = new ArrayList<Ligne>();
         try {
@@ -71,7 +71,7 @@ public abstract class Xml_Reader
         return stations;
     }
 
-    public String get_line_name(String content) {
+    public static String get_line_name(String content) {
         return content.split("\n")[0];
     }
 
@@ -79,7 +79,7 @@ public abstract class Xml_Reader
         return content.split(" ");
     }
 
-    public int get_duration(String timeCode1, String timeCode2) {
+    public static int get_duration(String timeCode1, String timeCode2) {
         int hour1 = Integer.parseInt(timeCode1.substring(0, (timeCode1.length()/2)));
         int minute1 = Integer.parseInt(timeCode1.substring((timeCode1.length()/2)));
 

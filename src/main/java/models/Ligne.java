@@ -38,11 +38,21 @@ public class Ligne{
         this.trajets.add(trajet);
     }
 
+    public String showTrajet(){
+        String result = "";
+        for (Trajet t: trajets
+             ) {
+            result = result + t.toString() + "\n";
+        }
+
+        return result;
+    }
+
     @Override
     public String toString() {
         return "Ligne{" +
-                "nom='" + nom + '\'' +
-                ", trajets=" + trajets +
+                "\nNom='" + nom + '\'' +
+                ", \nTrajets=\n" + showTrajet() +
                 '}';
     }
 }
