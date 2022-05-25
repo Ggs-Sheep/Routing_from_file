@@ -60,7 +60,7 @@ public class Metro_Reader {
 
             // Est sur un trajet aller retour
             if (isTrajet) {
-                if (ligne != "") {
+                if (ligne.equals("")) {
                     String trajetString = ligne;
                     String str[] = trajetString.split(" ");
                     List<String> al = new ArrayList<String>();
@@ -245,7 +245,7 @@ public class Metro_Reader {
 
             // Est sur un trajet aller retour
             if (isTrajet) {
-                if (ligne != "") {
+                if (ligne.equals("")) {
                     String trajetString = ligne;
                     String str[] = trajetString.split(" ");
                     List<String> al = new ArrayList<String>();
