@@ -245,12 +245,11 @@ public class Metro_Reader {
 
             // Est sur un trajet aller retour
             if (isTrajet) {
-                if (ligne.equals("")) {
+                if (!ligne.equals("")) {
                     String trajetString = ligne;
                     String str[] = trajetString.split(" ");
                     List<String> al = new ArrayList<String>();
                     al = Arrays.asList(str);
-                    //System.out.println(al);
                     ArrayList<String> trajetLigne = new ArrayList<>();
                     for (String s: al
                          ) {
